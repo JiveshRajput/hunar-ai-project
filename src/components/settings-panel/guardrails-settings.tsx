@@ -51,7 +51,7 @@ export function GuardrailsSettings(props: IGuardrailsSettingsProps) {
         <ToggleGroup
           type="multiple"
           value={callingDays}
-          onValueChange={(days) => {
+          onValueChange={(days: string[]) => {
             // Keep at least one day selected.
             if (days.length > 0) onCallingDaysChange(days);
           }}
@@ -82,14 +82,14 @@ export function GuardrailsSettings(props: IGuardrailsSettingsProps) {
             max={WINDOW_MAX_HOUR}
             step={1}
             minStepsBetweenThumbs={WINDOW_MIN_LENGTH}
-            onValueChange={(v) =>
-              onCallingWindowChange([v[0], v[1]] as [number, number])
+            onValueChange={(value) =>
+              onCallingWindowChange([value[0], value[1]] as [number, number])
             }
-            className="[&_[data-slot=slider-thumb]]:size-3.5 [&_[data-slot=slider-track]]:bg-[#e4e4e7]"
+            className="**:data-[slot=slider-thumb]:size-3.5 **:data-[slot=slider-track]:bg-[#e4e4e7]"
           />
           <div className="mt-3 flex justify-between text-sm font-medium text-[#71717a]">
-            {WINDOW_TICKS.map((h) => (
-              <span key={h}>{formatHour(h)}</span>
+            {WINDOW_TICKS.map((hour: number) => (
+              <span key={hour}>{formatHour(hour)}</span>
             ))}
           </div>
         </div>

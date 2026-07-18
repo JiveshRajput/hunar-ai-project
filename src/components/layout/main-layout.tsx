@@ -18,7 +18,7 @@ interface IMainLayoutProps {
 export const MainLayout = (props: IMainLayoutProps) => {
   const { children, handleSubmit } = props;
   return (
-    <div className="flex min-h-full flex-col bg-white text-[#27272a] max-w-[1124px] w-full mx-auto">
+    <div className="flex min-h-full flex-col bg-white text-[#27272a] max-w-281 w-full mx-auto">
       {/* Header */}
       <header className="px-5 py-6">
         <h1 className="text-[28px] font-bold leading-tight text-[#27272a]">

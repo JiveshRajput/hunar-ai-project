@@ -48,12 +48,12 @@ export function RedialSettings(props: IRedialSettingsProps) {
             min={REDIAL_COUNT_MIN}
             max={REDIAL_COUNT_MAX}
             step={1}
-            onValueChange={(v) => onRedialCountChange(v[0])}
-            className="[&_[data-slot=slider-range]]:bg-[#27272a] [&_[data-slot=slider-thumb]]:size-3.5 [&_[data-slot=slider-track]]:bg-[#e4e4e7]"
+            onValueChange={(value: number[]) => onRedialCountChange(value[0])}
+            className="**:data-[slot=slider-range]:bg-[#27272a] **:data-[slot=slider-thumb]:size-3.5 **:data-[slot=slider-track]:bg-[#e4e4e7]"
           />
           <div className="mt-3 flex justify-between text-sm font-medium text-[#71717a]">
-            {COUNT_TICKS.map((n) => (
-              <span key={n}>{n}</span>
+            {COUNT_TICKS.map((countTick: number) => (
+              <span key={countTick}>{countTick}</span>
             ))}
           </div>
         </div>
@@ -62,9 +62,9 @@ export function RedialSettings(props: IRedialSettingsProps) {
       <SettingsField label="Redial interval">
         <ToggleGroup
           type="single"
-          value={String(redialInterval)}
-          onValueChange={(v) => {
-            if (v) onRedialIntervalChange(Number(v));
+          value={`${redialInterval}`}
+          onValueChange={(value: string) => {
+            if (value) onRedialIntervalChange(Number(value));
           }}
           spacing={0}
           className="w-full rounded-lg bg-[#f4f4f5] p-0.5"
@@ -72,8 +72,8 @@ export function RedialSettings(props: IRedialSettingsProps) {
           {REDIAL_INTERVAL_OPTIONS.map((hours) => (
             <ToggleGroupItem
               key={hours}
-              value={String(hours)}
-              className="h-10 flex-1 rounded-lg border-none bg-transparent text-sm font-medium text-[#27272a] data-[state=on]:bg-white data-[state=on]:shadow-[0_1px_2px_rgba(0,0,0,0.06)] data-[state=on]:ring-1 data-[state=on]:ring-[#e4e4e7]"
+              value={`${hours}`}
+              className="h-10 flex-1 border-none bg-transparent text-sm font-medium text-[#27272a] data-[state=on]:bg-white data-[state=on]:shadow-[0_1px_2px_rgba(0,0,0,0.06)] data-[state=on]:ring-1 data-[state=on]:ring-[#e4e4e7] data-[state=on]:rounded-lg"
             >
               {hours} hours
             </ToggleGroupItem>

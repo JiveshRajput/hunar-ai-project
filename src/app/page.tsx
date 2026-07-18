@@ -30,9 +30,9 @@ export default function Home() {
     <MainLayout handleSubmit={handleSubmit}>
       {/* Body */}
       <main className="flex-1 p-5 py-8">
-        <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-[20px]">
+        <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-5">
           {/* Settings */}
-          <div className="flex w-full flex-col gap-6 lg:w-[525px] lg:shrink-0">
+          <div className="flex w-full flex-col gap-6 lg:w-131.25 lg:shrink-0">
             <SettingsPanel
               settings={settings}
               onCallingDaysChange={onCallingDaysChange}
@@ -43,7 +43,7 @@ export default function Home() {
           </div>
 
           {/* Forecast */}
-          <div className="w-full lg:w-[450px] lg:shrink-0">
+          <div className="w-full lg:w-112.5 lg:shrink-0">
             <WeatherForecastPanel evaluation={evaluation} />
           </div>
         </div>

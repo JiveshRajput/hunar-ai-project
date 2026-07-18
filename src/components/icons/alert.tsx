@@ -4,7 +4,7 @@
  */
 export function AlertIcon() {
   return (
-    <span className="flex size-[18px] shrink-0 items-center justify-center">
+    <span className="flex size-4.5 shrink-0 items-center justify-center">
       <svg viewBox="0 0 16 16" fill="none" className="size-4">
         <path d="M8 1.5 15 14H1L8 1.5Z" fill="#12367e" />
         <path

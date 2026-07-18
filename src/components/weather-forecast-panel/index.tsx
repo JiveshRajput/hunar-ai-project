@@ -1,8 +1,8 @@
 import { IMAGES } from '@/assets';
 import { LEVEL_VISUALS, PENALTY_ROWS } from '@/constants';
 import { ICampaignEvaluation } from '@/types';
-import { formatPenalty } from '@/utils/format';
 import Image from 'next/image';
+import { WeatherPenaltyCard } from './weather-penalty-card';
 import { WeatherWarningBanner } from './weather-warning-banner';
 
 /**
@@ -55,26 +55,16 @@ export function WeatherForecastPanel(props: IWeatherForecastPanelProps) {
 
       {/* Per-input penalty breakdown */}
       <div>
-        {PENALTY_ROWS.map((row) => {
-          const value = penalties[row.key];
-          return (
-            <div
-              key={row.key}
-              className="flex items-center justify-between border-b border-[#f4f4f5] px-6 py-4 last:border-b-0"
-            >
-              <span className="text-sm font-semibold text-[#71717a]">
-                {row.label}
-              </span>
-              <span
-                className={`text-sm font-semibold tabular-nums transition-colors ${
-                  value === 0 ? 'text-[#059669]' : 'text-[#ef4444]'
-                }`}
-              >
-                {formatPenalty(value)}
-              </span>
-            </div>
-          );
-        })}
+        {PENALTY_ROWS.map(
+          (row: {
+            key: keyof ICampaignEvaluation['penalties'];
+            label: string;
+          }) => {
+            const { key, label } = row;
+            const value = penalties[key];
+            return <WeatherPenaltyCard value={value} key={key} label={label} />;
+          },
+        )}
       </div>
     </div>
   );
