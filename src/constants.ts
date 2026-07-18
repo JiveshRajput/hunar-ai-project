@@ -6,7 +6,9 @@ import {
 } from '@/types';
 
 /**
- * The initial, warning-free defaults (score 100, Level 1).
+ * Default campaign settings used to initialize the application.
+ * These values represent the optimal configuration, resulting in a campaign
+ * score of `100` and a Level 1 weather forecast.
  */
 export const INITIAL_SETTINGS: ICampaignSettings = {
   callingDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -15,7 +17,11 @@ export const INITIAL_SETTINGS: ICampaignSettings = {
   redialInterval: 3,
 };
 
-/** Number of redials attempted (0–10). Optimal = 5. */
+/**
+ * Maps the configured redial count to its corresponding penalty score.
+ * The key represents the maximum number of redial attempts, while the value
+ * represents the penalty applied during campaign evaluation.
+ */
 export const REDIAL_COUNT_PENALTY: Record<number, number> = {
   0: -100,
   1: -90,
@@ -30,8 +36,11 @@ export const REDIAL_COUNT_PENALTY: Record<number, number> = {
   10: -76,
 };
 
-/** Hours between redials. Only these discrete stops are selectable. Optimal = 3h/6h. */
-export const REDIAL_INTERVAL_OPTIONS = [3, 6, 9, 12, 24] as const;
+/**
+ * Maps the configured redial interval, in hours, to its corresponding
+ * penalty score.
+ * Only the predefined interval values are supported.
+ */
 export const REDIAL_INTERVAL_PENALTY: Record<number, number> = {
   3: 0,
   6: 0,
@@ -40,7 +49,10 @@ export const REDIAL_INTERVAL_PENALTY: Record<number, number> = {
   24: -34,
 };
 
-/** Number of calling days per week (1–7). Optimal = 5 (Mon–Fri). */
+/**
+ * Maps the number of selected calling days to its corresponding penalty score.
+ * The key represents the number of active calling days in a week.
+ */
 export const CALLING_DAYS_PENALTY: Record<number, number> = {
   1: -40,
   2: -30,
@@ -51,7 +63,11 @@ export const CALLING_DAYS_PENALTY: Record<number, number> = {
   7: 0,
 };
 
-/** Length of the daily calling window in hours (3–13). Optimal = 13h (8 AM–9 PM). */
+/**
+ * Maps the duration of the calling window, in hours, to its corresponding
+ * penalty score.
+ * The key represents the total length of the configured calling window.
+ */
 export const CALLING_WINDOW_PENALTY: Record<number, number> = {
   3: -33,
   4: -26,
@@ -66,7 +82,12 @@ export const CALLING_WINDOW_PENALTY: Record<number, number> = {
   13: 0,
 };
 
-/** Weather levels keyed by the inclusive score band that produces them. */
+/**
+ * Defines the campaign score ranges for each weather level.
+ *
+ * Each level is selected when the campaign score falls within the inclusive
+ * `min` and `max` range.
+ */
 export const WEATHER_LEVELS = [
   { level: 1 as const, min: 82, max: 100 },
   { level: 2 as const, min: 62, max: 81 },
@@ -74,15 +95,43 @@ export const WEATHER_LEVELS = [
   { level: 4 as const, min: 0, max: 41 },
 ];
 
-/** The calling window runs on a 24h clock: 8 (8 AM) … 21 (9 PM). */
+/**
+ * Minimum number of calling days that must remain selected.
+ */
+export const MIN_CALLING_DAYS = 1;
+
+/**
+ * Earliest hour available for the calling window.
+ *
+ * Represented using a 24-hour clock.
+ */
 export const WINDOW_MIN_HOUR = 8;
+
+/**
+ * Latest hour available for the calling window.
+ *
+ * Represented using a 24-hour clock.
+ */
 export const WINDOW_MAX_HOUR = 21;
-/** Shortest selectable window (dictionary starts at 3h). */
+
+/**
+ * Minimum allowed duration, in hours, for the calling window.
+ */
 export const WINDOW_MIN_LENGTH = 3;
 
+/**
+ * Minimum supported redial count.
+ */
 export const REDIAL_COUNT_MIN = 0;
+
+/**
+ * Maximum supported redial count.
+ */
 export const REDIAL_COUNT_MAX = 10;
 
+/**
+ * Labels displayed for the selectable calling days.
+ */
 export const DAY_LABELS = [
   'Mon',
   'Tue',
@@ -93,12 +142,26 @@ export const DAY_LABELS = [
   'Sun',
 ] as const;
 
-/** Fixed axis ticks under the calling-window slider (8 AM … 9 PM). */
+/**
+ * Tick labels displayed beneath the calling window slider.
+ */
 export const WINDOW_TICKS = [8, 11, 14, 17, 21];
+
+/**
+ * Tick labels displayed beneath the redial count slider.
+ */
 export const COUNT_TICKS = [0, 2, 4, 6, 8, 10];
 
 /**
- * Per-level warning level for the forecast scene.
+ * Available redial interval options, in hours.
+ */
+export const REDIAL_INTERVAL_OPTIONS = [3, 6, 9, 12, 24] as const;
+
+/**
+ * Maps each weather level to its corresponding visual configuration.
+ *
+ * The configuration determines whether a warning banner should be displayed
+ * for the evaluated campaign level.
  */
 export const LEVEL_VISUALS: Record<TWeatherLevel, ILevelVisual> = {
   1: { warning: false },
@@ -107,6 +170,13 @@ export const LEVEL_VISUALS: Record<TWeatherLevel, ILevelVisual> = {
   4: { warning: true },
 };
 
+/**
+ * Configuration describing the penalty rows displayed in the weather
+ * forecast panel.
+ *
+ * Each entry maps a penalty key from the campaign evaluation to its
+ * corresponding display label.
+ */
 export const PENALTY_ROWS: {
   key: keyof ICampaignEvaluation['penalties'];
   label: string;

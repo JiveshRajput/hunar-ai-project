@@ -28,7 +28,7 @@ export const useHandleSettingsState = () => {
    * @param value - The new value for the specified setting.
    * @returns Void.
    */
-  const update: <K extends keyof ICampaignSettings>(
+  const updateSettings: <K extends keyof ICampaignSettings>(
     key: K,
     value: ICampaignSettings[K],
   ) => void = (key, value) =>
@@ -40,7 +40,7 @@ export const useHandleSettingsState = () => {
    * @returns Void.
    */
   const onCallingDaysChange: (days: string[]) => void = (days: string[]) =>
-    update('callingDays', days);
+    updateSettings('callingDays', days);
 
   /**
    * Updates the configured calling time window.
@@ -49,7 +49,7 @@ export const useHandleSettingsState = () => {
    */
   const onCallingWindowChange: (window: [number, number]) => void = (
     window: [number, number],
-  ) => update('callingWindow', window);
+  ) => updateSettings('callingWindow', window);
 
   /**
    * Updates the maximum number of redial attempts.
@@ -57,7 +57,7 @@ export const useHandleSettingsState = () => {
    * @returns Void.
    */
   const onRedialCountChange: (count: number) => void = (count: number) =>
-    update('redialCount', count);
+    updateSettings('redialCount', count);
 
   /**
    * Updates the interval, in hours, between consecutive redial attempts.
@@ -66,7 +66,7 @@ export const useHandleSettingsState = () => {
    */
   const onRedialIntervalChange: (interval: number) => void = (
     interval: number,
-  ) => update('redialInterval', interval);
+  ) => updateSettings('redialInterval', interval);
 
   /**
    * Handles campaign submission.
@@ -76,17 +76,15 @@ export const useHandleSettingsState = () => {
    * @returns Void.
    */
   const handleSubmit = () => {
-    console.log(
-      `
-        ---------------------------------------------------
+    const displayMessage: string = `
+      ---------------------------------------------------
         Calling Days: ${settings.callingDays.join(', ')} (${settings.callingDays.length} days)
         Calling Window: ${formatHour(settings.callingWindow[0])} – ${formatHour(settings.callingWindow[1])} (${settings.callingWindow[1] - settings.callingWindow[0]} Hours)
         Redail Count: ${settings.redialCount}
         Redail Interval: ${settings.redialInterval} Hours
-        ---------------------------------------------------
-        `,
-      settings,
-    );
+      ---------------------------------------------------
+    `;
+    console.log(displayMessage, settings);
   };
 
   return {
@@ -98,7 +96,7 @@ export const useHandleSettingsState = () => {
     onRedialIntervalChange,
     setSettings,
     settings,
-    update,
+    updateSettings,
   };
 };
 
